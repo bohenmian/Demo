@@ -1,0 +1,59 @@
+version: '3'
+services:
+  mysql:
+    image: mysql
+    ports:
+      - '3306:3306'
+    environment:
+      MYSQL_USER: user
+      MYSQL_PASSWORD: root
+      MYSQL_ROOT_PASSWORD: pass
+    container_name: mysql
+    hostname: mysql
+    restart: always
+  eureka-server:
+    build:
+      context: eureka/
+      dockerfile: Dockerfile
+    hostname: eureka-server
+    container_name: eureka-server
+    ports:
+      - '8000:8000'
+  api-gateway:
+    build:
+      context: api-gateway
+      dockerfile: Dockerfile
+    hostname: api-gateway
+    container_name: api-gateway
+    ports:
+      - '8003:8003'
+    depends_on:
+      - eureka-server
+    restart: always
+  order-service:
+    build:
+      context: order/
+      dockerfile: Dockerfile
+    hostname: order-service
+    container_name: order-service
+    ports:
+      - '8002:8002'
+    depends_on:
+      - eureka-server
+      - mysql
+    restart: always
+  #    volumes:
+  #      - "./wait-for-it.sh:/wait-for-it.sh"
+  user-service:
+    build:
+      context: user
+      dockerfile: Dockerfile
+    hostname: user-service
+    container_name: user-service
+    ports:
+      - '8001:8001'
+    depends_on:
+      - eureka-server
+      - mysql
+    restart: always
+
