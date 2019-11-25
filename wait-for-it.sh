@@ -1,8 +1,8 @@
 #!/bin/bash
 
 wait_for() {
-    echo Waiting for $1 to listen on $2...
-    while ! nc -z $1 $2; do echo waiting...; sleep $SLEEP_SECOND; done
+    echo Waiting for "$1" to listen on "$2"...
+    while ! nc -z "$1" "$2"; do echo waiting...; sleep "$SLEEP_SECOND"; done
 }
 
 declare DEPENDS
@@ -28,7 +28,7 @@ for var in ${DEPENDS//,/ }
 do
     host=${var%:*}
     port=${var#*:}
-    wait_for $host $port
+    wait_for "$host" "$port"
 done
 
-eval $CMD
+eval "$CMD"

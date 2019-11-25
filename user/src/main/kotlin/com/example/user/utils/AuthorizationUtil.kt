@@ -9,6 +9,7 @@ import java.util.*
 import java.util.stream.Collectors
 
 
+@Suppress("DEPRECATION")
 class AuthorizationUtil {
 
     companion object {
@@ -31,8 +32,6 @@ class AuthorizationUtil {
                         .map { SimpleGrantedAuthority(it) }
                         .collect(Collectors.toList())
 
-
-        fun isExpiration(token: String): Boolean = getTokenBody(token).expiration.before(Date())
 
         private fun getTokenBody(token: String): Claims =
                 Jwts.parser()

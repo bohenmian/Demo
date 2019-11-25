@@ -4,13 +4,13 @@ import com.example.user.entity.User
 import org.springframework.security.core.GrantedAuthority
 import org.springframework.security.core.userdetails.UserDetails
 
-class JwtUser : UserDetails {
+class JwtUser(user: User) : UserDetails {
     private val id: Long?
     private val username: String
     private val password: String
     private val authorities: Collection<GrantedAuthority>
 
-    constructor(user: User) {
+    init {
         id = user.id
         username = user.username
         password = user.password

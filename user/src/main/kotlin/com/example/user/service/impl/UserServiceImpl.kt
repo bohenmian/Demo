@@ -8,16 +8,13 @@ import com.example.user.http.request.LoginRequest
 import com.example.user.http.response.SuccessMessage
 import com.example.user.repository.UserRepository
 import com.example.user.service.UserService
-import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder
 import org.springframework.security.crypto.password.PasswordEncoder
 import org.springframework.stereotype.Service
 
 @Service
-class UserServiceImpl : UserService {
+class UserServiceImpl(val userRepository: UserRepository) : UserService {
 
-    @Autowired
-    private lateinit var userRepository: UserRepository
     private var passwordEncoder: PasswordEncoder = BCryptPasswordEncoder()
 
     override fun createUser(request: CreateUserRequest): SuccessMessage {
