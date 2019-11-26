@@ -45,7 +45,7 @@ class WebSecurityConfig : WebSecurityConfigurerAdapter() {
                 .disable()
                 .authorizeRequests()
                 .antMatchers(HttpMethod.POST, "/auth/login").permitAll()
-                .antMatchers("/api/user/create").permitAll()
+                .antMatchers("/api/v1/user/create").permitAll()
                 .antMatchers("/api/**").authenticated()
                 .antMatchers(HttpMethod.DELETE, "/api/**").hasRole("ADMIN")
                 .anyRequest().permitAll()

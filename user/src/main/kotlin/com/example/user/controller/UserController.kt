@@ -10,19 +10,21 @@ import org.springframework.web.bind.annotation.ExceptionHandler
 import org.springframework.web.bind.annotation.GetMapping
 import org.springframework.web.bind.annotation.PostMapping
 import org.springframework.web.bind.annotation.RequestBody
+import org.springframework.web.bind.annotation.RequestMapping
 import org.springframework.web.bind.annotation.RestController
 import javax.validation.Valid
 
 @RestController
+@RequestMapping("/api/v1")
 class UserController(val userService: UserService) {
 
-    @PostMapping("/api/user/create")
+    @PostMapping("/user/create")
     fun signUp(@RequestBody @Valid request: CreateUserRequest): ResponseEntity<SuccessMessage> =
             ResponseEntity
                     .status(HttpStatus.CREATED)
                     .body(userService.createUser(request))
 
-    @GetMapping("/api/user/hello")
+    @GetMapping("/user/hello")
     fun hello(): String {
         return "hello"
     }
